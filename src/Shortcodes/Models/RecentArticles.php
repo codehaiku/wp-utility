@@ -59,7 +59,7 @@ class RecentArticles implements NewsHubShortcode{
 	{ 
 		add_action('init', array($this, 'register'));
 
-		$this->config = new NewsHubConfig();
+		$this->config = new \NewsHubConfig();
 
 	}
 

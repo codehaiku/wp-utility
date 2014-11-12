@@ -8,8 +8,6 @@
  * @version 1.0
  */
 
-namespace news_hub\shortcodes;
-
 class NewsHubConfig{
 
 	/**

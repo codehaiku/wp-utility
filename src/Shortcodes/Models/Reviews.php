@@ -54,7 +54,7 @@ class Reviews implements NewsHubShortcode{
 	 */
 	public function __construct() 
 	{ 
-		$this->config = new NewsHubConfig();
+		$this->config = new \NewsHubConfig();
 
 		add_action('init', array($this, 'register'));
 

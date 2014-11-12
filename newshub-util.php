@@ -24,7 +24,10 @@ namespace news_hub\shortcodes;
 
 require_once trailingslashit(plugin_dir_path( __FILE__ )) . 'src/config.php';
 
-$config = new NewsHubConfig();
+$config = new \NewsHubConfig();
 
 // load the shortcodes
 require_once $config->getSourcePath() . 'Shortcodes/shortcodes.php';
+
+// load the widgets
+require_once $config->getSourcePath() . 'Widgets/widgets.php';
