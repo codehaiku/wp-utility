@@ -1,6 +1,6 @@
 <?php
 /**
- * RecentArticles
+ * Reviews
  *
  * @package NewsHub
  * @subpackage shortcode
@@ -9,18 +9,18 @@
 namespace news_hub\shortcodes;
 	
 /**
- * Displays recent articles via shortcode and 
- *
+ * Displays recent articles that has a review
+ * 
  * @version  1.0
  * @author   <codehaiku.io@gmail.com>
  */
-class RecentArticles implements NewsHubShortcode{
+class Reviews implements NewsHubShortcode{
 
 	/**
 	 * The title of the shortcode
 	 * @var string
 	 */
-	public $shortcodeTitle = 'Recent Articles';
+	public $shortcodeTitle = 'Reviews';
 
 	/**
 	 * the maximum number of entry
@@ -32,7 +32,7 @@ class RecentArticles implements NewsHubShortcode{
 	 * the unique name of our shortcode
 	 * @var string
 	 */
-	private $shortcodeName = 'news_hub_recent_articles';
+	private $shortcodeName = 'news_hub_reviews';
 
 	/**
 	 * The vars we can pass into our template
@@ -54,7 +54,11 @@ class RecentArticles implements NewsHubShortcode{
 	 */
 	public function __construct() 
 	{ 
+		$this->config = new NewsHubConfig();
+
 		add_action('init', array($this, 'register'));
+
+		return;
 	}
 
 	/**
@@ -82,11 +86,13 @@ class RecentArticles implements NewsHubShortcode{
 		$this->attributes = shortcode_atts(
 			array(
  	      			'max_item' => 5,
- 	      			'title' => __('Recent Articles', 'news_hub'),
+ 	      			'title' => $this->shortcodeTitle,
       			), 
       		$attributes, 
       		$this->shortcodeName
       	);
+
+		$this->attributes['max_item'] = abs($this->attributes['max_item']);
 
 		// do not allow unlimited option
 		if ($this->attributes['max_item'] == 0) {
@@ -98,14 +104,7 @@ class RecentArticles implements NewsHubShortcode{
 				// it is breaking the layout -_-
 				'posts_per_page' => ($this->attributes['max_item'] <= $this->maxItem) ? $this->attributes['max_item'] : $this->maxItem,
 				'ignore_sticky_posts' => TRUE,
-				'tax_query' => array(
-					array(
-						'taxonomy' => 'post_format',
-						'field' => 'slug',
-						'terms' => array( 'post-format-video' ),
-						'operator' => 'NOT IN',
-					),
-				),
+				'meta_key' => 'wp_review_total',
 			));
 
 		$this->vars = array(
@@ -129,7 +128,7 @@ class RecentArticles implements NewsHubShortcode{
 
 		ob_start();
 		
-		include trailingslashit(get_template_directory()) . '/shortcodes/recent-articles.php';
+		include $this->config->getSourcePath() . 'Shortcodes/Views/reviews.php';
 
 		return $output = ob_get_clean();
 	}

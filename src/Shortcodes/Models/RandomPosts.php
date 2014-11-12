@@ -54,6 +54,8 @@ class RandomPosts implements NewsHubShortcode{
 	 */
 	public function __construct() 
 	{ 
+		$this->config = new NewsHubConfig();
+
 		add_action('init', array($this, 'register'));
 	}
 
@@ -123,7 +125,7 @@ class RandomPosts implements NewsHubShortcode{
 
 		ob_start();
 		
-		include trailingslashit(get_template_directory()) . '/shortcodes/random-posts.php';
+		include $this->config->getSourcePath() . 'Shortcodes/Views/random-posts.php';
 
 		return $output = ob_get_clean();
 	}

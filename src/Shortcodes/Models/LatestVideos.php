@@ -8,6 +8,8 @@
 
 namespace news_hub\shortcodes;
 	
+require_once $config->getSourcePath() . 'Shortcodes/interface.php';
+
 /**
  * Displays latest video via shortcode
  *
@@ -54,7 +56,11 @@ class LatestVideos implements NewsHubShortcode{
 	 */
 	public function __construct() 
 	{ 
+		$this->config = new NewsHubConfig();
+
 		add_action('init', array($this, 'register'));
+
+		return $this;
 	}
 
 	/**
@@ -131,7 +137,7 @@ class LatestVideos implements NewsHubShortcode{
 
 		ob_start();
 		
-		include trailingslashit(get_template_directory()) . '/shortcodes/latest-videos.php';
+		include $this->config->getSourcePath() . 'Shortcodes/Views/latest-videos.php';
 
 		return $output = ob_get_clean();
 	}

@@ -53,6 +53,9 @@ class TopStories implements NewsHubShortcode{
 	 */
 	public function __construct() 
 	{ 
+		
+		$this->config = new NewsHubConfig();
+
 		add_action('init', array($this, 'register'));
 	}
 
@@ -119,7 +122,7 @@ class TopStories implements NewsHubShortcode{
 
 		ob_start();
 		
-		include trailingslashit(get_template_directory()) . '/shortcodes/top-stories.php';
+		include $this->config->getSourcePath() . 'Shortcodes/Views/top-stories.php';
 
 		return $output = ob_get_clean();
 	}

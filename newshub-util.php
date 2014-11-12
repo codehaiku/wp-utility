@@ -22,23 +22,9 @@
 
 namespace news_hub\shortcodes;
 
-require_once trailingslashit(plugin_dir_path( __FILE__ ) . 'src/config.php');
+require_once trailingslashit(plugin_dir_path( __FILE__ )) . 'src/config.php';
 
-/*
+$config = new NewsHubConfig();
 
-require_once trailingslashit(get_template_directory()) . 'shortcodes/interface.php';
-require_once trailingslashit(get_template_directory()) . 'shortcodes/RandomPosts.php';
-require_once trailingslashit(get_template_directory()) . 'shortcodes/RecentArticles.php';
-require_once trailingslashit(get_template_directory()) . 'shortcodes/LatestVideos.php';
-require_once trailingslashit(get_template_directory()) . 'shortcodes/Reviewss.php';
-require_once trailingslashit(get_template_directory()) . 'shortcodes/TopStories.php';
-
-new RandomPosts();
-new RecentArticles();
-new LatestVideos();
-new Reviews();
-new TopStories();
-
-// add the tinymce plugin
-require_once trailingslashit(get_template_directory()) . 'shortcodes/tiny-mce.php';
-?>
+// load the shortcodes
+require_once $config->getSourcePath() . 'Shortcodes/shortcodes.php';
