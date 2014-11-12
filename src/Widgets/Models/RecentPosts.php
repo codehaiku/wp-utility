@@ -32,13 +32,14 @@ Class RecentPosts extends \WP_Widget{
 	 * @var stdClass
 	 */
 	private $vars;
-	
+
 	/**
 	 * Sets up the widgets name etc
 	 */
 	public function __construct() {
 
 		$this->vars = new \stdClass;
+		$this->config = new NewsHubConfig();	
 
 		// widget actual processes
 		parent::__construct($this->id, $this->widgetName);
@@ -55,6 +56,7 @@ Class RecentPosts extends \WP_Widget{
 	public function widget( $args, $instance ) {
 
 		// outputs the content of the widget
+		
 		$this->vars->args = $args;
 		$this->vars->instance = $instance;
 
@@ -72,7 +74,20 @@ Class RecentPosts extends \WP_Widget{
 	 * @param array $instance The widget options
 	 */
 	public function form( $instance ) {
+
+		ob_start();
 		// outputs the options form on admin
+		if (isset($instance['title'])) {
+			$this->vars->title = $instance[ 'title' ];
+		} else {
+			$this->vars->title = __( 'Recent Posts', 'news_hub' );
+		}
+		
+		require $this->config->getSourcePath() . 'Widgets/Forms/RecentPostsForm.php';
+
+		$output = ob_get_clean();
+
+		echo $output;
 	}
 
 	/**
@@ -83,6 +98,10 @@ Class RecentPosts extends \WP_Widget{
 	 */
 	public function update( $new_instance, $old_instance ) {
 		// processes widget options to be saved
+		$instance = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+
+		return $instance;
 	}
 
 	/**
@@ -105,9 +124,7 @@ Class RecentPosts extends \WP_Widget{
 	{
 		ob_start();
 
-		$config = new NewsHubConfig();	
-
-		include_once $config->getSourcePath() . 'Widgets/Views/recent-posts.php';
+		include_once $this->config->getSourcePath() . 'Widgets/Views/recent-posts.php';
 
 		$output = ob_get_clean();
 
