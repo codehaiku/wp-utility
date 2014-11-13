@@ -18,6 +18,7 @@ use Exception;
  */
 $widgetsCollection = array(
 	'RecentPosts',
+	'LatestVideos',
 	);
 
 // iterate through each widgets listed

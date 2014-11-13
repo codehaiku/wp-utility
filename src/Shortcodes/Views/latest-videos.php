@@ -104,7 +104,7 @@ $i = 0;
                     <div class="col-md-8 col-sm-8">
                         <div>
                             <div class="pull-left">
-                                <?php $category_colour = news_hub_the_category_list(); ?>
+                                <?php $category_colour = news_hub_the_category_list(false, 2, false); ?>
                                 <div class="clearfix"></div>
                             </div>
                         </div>

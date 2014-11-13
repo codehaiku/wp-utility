@@ -31,9 +31,14 @@
 			</a>
 		</div>
 		<div class="col-md-8 col-sm-8 rm-padding-right">
-			<p>
-				Polics | 22 Oct 2014
-			</p>
+			<div>
+				<?php if (function_exists('news_hub_the_category_list')) { ?>
+					<?php news_hub_the_category_list(FALSE, 1, FALSE); ?> 
+				<?php } ?>
+				<div class="pull-left vertical-sepator"> | </div>
+				<div class="pull-left"><span class="uppercase small"><?php echo news_hub_get_the_date(); ?></span></div>
+				<div class="cleearfix"></div>
+			</div>
 			<h6>
 				<a class="black" href="<?php echo esc_url(the_permalink()); ?>" title="<?php echo esc_attr(the_title()); ?>">
 					<?php echo esc_attr(the_title()); ?>
