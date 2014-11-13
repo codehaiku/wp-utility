@@ -41,6 +41,8 @@ Class RecentPosts extends \WP_Widget{
 		$this->vars = new \stdClass;
 		$this->config = new NewsHubConfig();	
 
+		// load this widget stylesheet
+		add_action('wp_enqueue_scripts', array($this, 'stylesheet'));
 		// widget actual processes
 		parent::__construct($this->id, $this->widgetName);
 
@@ -114,6 +116,18 @@ Class RecentPosts extends \WP_Widget{
 
 		register_widget(static::class);
 
+	}
+
+	/**
+	 * Loads the stylesheet for this Widget
+	 * @return [type] [description]
+	 */
+	public function stylesheet()
+	{
+		
+		wp_enqueue_style('widget-newshub-recent-posts', $this->config->getPluginUrl() . 'assets/css/style.css');
+
+		return $this;
 	}
 
 	/**

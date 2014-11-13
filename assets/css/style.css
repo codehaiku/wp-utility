@@ -1,0 +1,18 @@
+/**
+ * The style of the widgets
+ *
+ * @version 1.0
+ *
+ * -----------
+ *
+ * Table of Contents
+ *
+ * I. RecentPosts Widget
+ */
+
+/*Section I. RecentPoss Widget*/
+.widget_newshubrecentposts .entry-post img{
+	padding: 4px;
+	background: #fff;
+	border: 1px solid #e1e1e1;
+}

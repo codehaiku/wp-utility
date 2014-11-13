@@ -46,7 +46,7 @@
 	<div class="clearfix"></div>
 </ul>
 <div class="center">
-	<h6><a href="#">See More Posts</a></h6>
+	<h6><a title="<?php _e('Posts Archive', 'news_hub'); ?>" href="<?php echo esc_url(get_post_type_archive_link('posts')); ?>"><?php _e('See More Posts', 'news_hub'); ?></a></h6>
 </div>
 <?php } ?>
 <?php echo $this->vars->args['after_widget']; ?>
